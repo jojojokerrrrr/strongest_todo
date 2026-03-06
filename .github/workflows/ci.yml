@@ -18,7 +18,7 @@ jobs:
           bundler-cache: true
 
       - name: RuboCop
-        run: bin/rubocop -f github
+        run: bundle exec rubocop -f github
 
   frontend-ci:
     runs-on: ubuntu-latest
