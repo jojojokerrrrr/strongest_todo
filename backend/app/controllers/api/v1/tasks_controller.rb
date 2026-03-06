@@ -1,9 +1,9 @@
 class Api::V1::TasksController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   before_action :set_task, only: [:update, :destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = Task.preload(:category).order(created_at: :desc).page(params[:page]).per(10)
 
     pagination = {
       current: @tasks.current_page,
@@ -13,11 +13,14 @@ class Api::V1::TasksController < ApplicationController
       count_pages: @tasks.total_count
     }
 
-    render json: { tasks: @tasks, meta: pagination }, status: :ok
+    render json: { 
+        tasks: @tasks.as_json(include: {category: {only: :name}}), 
+        meta: pagination 
+      }, status: :ok
   end
 
   def create
-    task = current_user.tasks.build(task_params)
+    task = User.first.tasks.build(task_params)
 
     if task.save
       render json: { message: "タスクを登録しました", task: task }, status: :created
@@ -45,7 +48,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def set_task
-    @task = current_user.tasks.find_by(id: params[:id])
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       render json: { message: "タスクがありません" }, status: :not_found
@@ -53,6 +56,6 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :status)
+    params.require(:task).permit(:title, :category, :description, :status)
   end
 end

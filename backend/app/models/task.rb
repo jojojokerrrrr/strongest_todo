@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  belongs_to :category
   validates :title, presence: true
   validates :category, presence: true
   enum :status, { incomplete: 0, completed: 1}
