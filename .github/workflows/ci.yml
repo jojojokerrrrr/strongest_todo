@@ -21,10 +21,10 @@ jobs:
           bundler-cache: true
       
       - name: Brakeman
-        run: bundle exec brakeman --no-pager
+        run: brakeman --no-pager
 
       - name: RuboCop
-        run: bundle exec rubocop -f github
+        run: rubocop -f github
 
   frontend-ci:
     runs-on: ubuntu-latest
