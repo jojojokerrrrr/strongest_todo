@@ -1,5 +1,5 @@
 import { useSWRConfig } from "swr";
-import { api } from "../api";
+import { api } from "../utils/api";
 
 export default function TaskItem({task}) {
   const {mutate} = useSWRConfig();
