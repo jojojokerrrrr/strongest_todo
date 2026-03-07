@@ -19,6 +19,9 @@ jobs:
         with:
           ruby-version: "3.4.8"
           bundler-cache: true
+      
+      - name: Brakeman
+        run: bundle exec brakeman --no-pager
 
       - name: RuboCop
         run: bundle exec rubocop -f github
