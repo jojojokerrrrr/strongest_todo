@@ -17,14 +17,19 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.8"
+          ruby-version: '3.4.6'
           bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
       
       - name: Brakeman
-        run: brakeman --no-pager
+        run: |
+          bundle update brakeman
+          bin/brakeman --no-pager
 
       - name: RuboCop
-        run: rubocop -f github
+        run: bin/rubocop -f github
 
   frontend-ci:
     runs-on: ubuntu-latest

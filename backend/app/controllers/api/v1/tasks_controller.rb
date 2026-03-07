@@ -1,6 +1,6 @@
 class Api::V1::TasksController < ApplicationController
-  #before_action :authenticate_user!
-  before_action :set_task, only: [:update, :destroy]
+  # before_action :authenticate_user!
+  before_action :set_task, only: [ :update, :destroy ]
 
   def index
     @tasks = Task.preload(:category).order(created_at: :desc).page(params[:page]).per(10)
@@ -13,9 +13,9 @@ class Api::V1::TasksController < ApplicationController
       count_pages: @tasks.total_count
     }
 
-    render json: { 
-        tasks: @tasks.as_json(include: {category: {only: :name}}), 
-        meta: pagination 
+    render json: {
+        tasks: @tasks.as_json(include: { category: { only: :name } }),
+        meta: pagination
       }, status: :ok
   end
 

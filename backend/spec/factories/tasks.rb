@@ -24,6 +24,5 @@ FactoryBot.define do
       visibility { :public_task }
       association :user
     end
-
   end
 end

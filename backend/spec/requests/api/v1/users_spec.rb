@@ -1,9 +1,8 @@
 require 'rails_helper'
 RSpec.describe 'Api::V1::Users', type: :request do
-
   describe "POST /api/v1/users" do
     context "有効なパラメータである場合" do
-      let!(:valid_params) { { user: FactoryBot.attributes_for(:user)} } 
+      let!(:valid_params) { { user: FactoryBot.attributes_for(:user) } }
       it "ユーザーが作成できること" do
         expect {
           post "/api/v1/users", params: valid_params
@@ -30,7 +29,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
     context "認証している場合" do
       let(:token) { JwtToken.call(user) }
-      let(:headers) {{ "Authorization" => "Bearer #{token}" }}
+      let(:headers) { { "Authorization" => "Bearer #{token}" } }
       it "自身のアカウントを削除できること" do
         expect {
           delete "/api/v1/users/#{user.id}", headers: headers
@@ -60,7 +59,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
     context "認証していて正しいパラメータの場合" do
       let(:update_params) { FactoryBot.attributes_for(:user, :update_user) }
       let(:token) { JwtToken.call(user) }
-      let(:headers) {{ "Authorization" => "Bearer #{token}" }}
+      let(:headers) { { "Authorization" => "Bearer #{token}" } }
       it "ユーザーが更新できること" do
         put "/api/v1/users/#{user.id}", params: { user: update_params }, headers: headers
         expect(response).to have_http_status(:ok)
@@ -81,7 +80,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
     context "不正なパラメータの場合" do
       let(:invalid_params) { FactoryBot.attributes_for(:user, :invalid_user) }
       let(:token) { JwtToken.call(user) }
-      let(:headers) {{ "Authorization" => "Bearer #{token}" }}
+      let(:headers) { { "Authorization" => "Bearer #{token}" } }
       it "更新に失敗すること" do
         put "/api/v1/users/#{user.id}", params: { user: invalid_params }, headers: headers
         expect(response).to have_http_status(:unprocessable_content)
