@@ -12,5 +12,4 @@ class JwtAuth
       nil
     end
   end
-
 end

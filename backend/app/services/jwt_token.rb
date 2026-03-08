@@ -5,5 +5,4 @@ class JwtToken
     token = JWT.encode(payload, secret_key)
     token
   end
-  
 end
