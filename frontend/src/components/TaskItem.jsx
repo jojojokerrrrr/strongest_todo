@@ -32,6 +32,10 @@ export default function TaskItem({task}) {
   return (
     <div className="card border-2 border-gray-400 w-96 shadow-sm">
       <div className="card-body">
+        <div className="flex justify-between items-center mb-2">
+          <div className="text-lg font-bold">{task.user?.name}</div>
+          <div className="text-xs text-gray-400 mb-2">{new Date(task.created_at).toLocaleString('ja-JP')}</div>
+        </div>
         <div className={isComplete ? "line-through text-gray-400" : ""}>
           <h2 className="card-title">{task.title}
             <span className="badge badge-outline">{task.category.name}</span>
