@@ -31,8 +31,6 @@ export default function TaskCreateModal() {
       <button className="btn btn-primary btn-ghost w-full" onClick={()=>document.getElementById("task_modal").showModal()}>作成</button>
       <dialog id="task_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">タスク作成</h3>
-
           <form onSubmit={handleCreate}>
             <label className="label">タイトル</label>
             <input type="text" className="input input-bordered w-full mb-2" value={title} onChange={(e) => setTitle(e.target.value)} required/>
