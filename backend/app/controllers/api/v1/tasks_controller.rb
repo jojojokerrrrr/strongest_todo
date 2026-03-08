@@ -14,7 +14,7 @@ class Api::V1::TasksController < ApplicationController
     }
 
     render json: {
-        tasks: @tasks.as_json(include: { category: { only: :name }, user: { only: :name} }),
+        tasks: @tasks.as_json(include: { category: { only: :name }, user: { only: :name } }),
         meta: pagination
       }, status: :ok
   end
