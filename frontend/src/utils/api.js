@@ -12,6 +12,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-const fetcher = (url) => {
+export const fetcher = (url) => {
   return api.get(url).then(res => res.data);
 }
