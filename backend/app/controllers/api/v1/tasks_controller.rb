@@ -1,5 +1,5 @@
 class Api::V1::TasksController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_task, only: [ :update, :destroy ]
 
   def index
@@ -14,13 +14,13 @@ class Api::V1::TasksController < ApplicationController
     }
 
     render json: {
-        tasks: @tasks.as_json(include: { category: { only: :name } }),
+        tasks: @tasks.as_json(include: { category: { only: :name }, user: { only: :name} }),
         meta: pagination
       }, status: :ok
   end
 
   def create
-    task = User.first.tasks.build(task_params)
+    task = current_user.tasks.build(task_params)
 
     if task.save
       render json: { message: "タスクを登録しました", task: task }, status: :created
@@ -56,6 +56,6 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :category, :description, :status)
+    params.require(:task).permit(:title, :category_id, :description, :status)
   end
 end
