@@ -28,7 +28,7 @@ export default function TaskCreateModal() {
 
   return (
     <>
-      <button className="btn" onClick={()=>document.getElementById("task_modal").showModal()}>作成</button>
+      <button className="btn btn-primary btn-ghost w-full" onClick={()=>document.getElementById("task_modal").showModal()}>作成</button>
       <dialog id="task_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">タスク作成</h3>

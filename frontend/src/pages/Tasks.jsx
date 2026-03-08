@@ -1,5 +1,5 @@
+import Sidebar from "../components/Sidebar";
 import TaskItem from "../components/TaskItem"
-import TaskCreateModal from "../components/TaskModal";
 import { fetcher } from "../utils/api";
 import useSWR from "swr";
 
@@ -12,14 +12,16 @@ export default function Tasks(){
   const tasks = data.tasks || [];
 
   return (
-    <>
-      <TaskCreateModal/>
+    <div className="flex min-h-screen">
+      <Sidebar />
 
-      <div className="mt-4">
-        {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
-        ))}
+      <div className="flex-1 p-8 bg-base-100">
+        <div className="mt-4">
+          {tasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
