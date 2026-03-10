@@ -3,7 +3,7 @@ module Auth
 
   def authenticate_user!
     if current_user.nil?
-      render json: {error: "Unauthorized"}, status: :unauthorized
+      render json: { error: "Unauthorized" }, status: :unauthorized
     end
   end
 
@@ -23,5 +23,4 @@ module Auth
 
     User.find_by(id: decoded[:user_id])
   end
-
 end
