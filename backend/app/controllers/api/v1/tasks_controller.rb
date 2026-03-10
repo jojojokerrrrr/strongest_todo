@@ -3,7 +3,7 @@ class Api::V1::TasksController < ApplicationController
   before_action :set_task, only: [ :update, :destroy ]
 
   def index
-    @tasks = Task.preload(:category).order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = current_user.tasks.preload(:category).order(created_at: :desc).page(params[:page]).per(10)
 
     pagination = {
       current: @tasks.current_page,
@@ -48,7 +48,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
 
     if @task.nil?
       render json: { message: "タスクがありません" }, status: :not_found
