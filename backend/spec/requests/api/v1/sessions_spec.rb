@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe "API::V1::Session", type: :request do
   describe "POST /api/v1/session" do
-    let(:user) {FactoryBot.create(:user)}
+    let(:user) { FactoryBot.create(:user) }
 
     context "有効なパラメータの場合" do
       it "トークンが返ること" do
@@ -29,7 +29,7 @@ RSpec.describe "API::V1::Session", type: :request do
   end
 
   describe "DELETE /api/v1/session" do
-    let(:user) {FactoryBot.create(:user)}
+    let(:user) { FactoryBot.create(:user) }
     context "リクエストを送った場合" do
       it "ログアウトされること" do
         delete "/api/v1/session"
