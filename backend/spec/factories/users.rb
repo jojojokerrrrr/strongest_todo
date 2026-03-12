@@ -4,18 +4,6 @@ FactoryBot.define do
     sequence(:email) { |n| "test#{n}@example.com" }
     password { "123456" }
 
-    trait :invalid_user do
-      name { "" }
-      email { "aaaa" }
-      password { "1" }
-    end
-
-    trait :update_user do
-      name { "update_name" }
-      email { "update@example.com" }
-      password { "update_123456" }
-    end
-
     trait :other_user do
       name { "other_name" }
       sequence(:email) { |n| "other#{n}@example.com" }
