@@ -3,7 +3,7 @@ class Api::V1::SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
 
     if user&.authenticate(session_params[:password])
-      token = JwtToken.call(user)
+      token = JwtToken.encode(user)
 
       render json: { message: "ログイン成功", token: token, user: { id: user.id, name: user.name, email: user.email } }, status: :ok
     else

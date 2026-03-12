@@ -25,7 +25,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
   end
 
   describe "DELETE /api/v1/users" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { FactoryBot.build(:user) }
 
     context "認証している場合" do
       let(:token) { JwtToken.call(user) }

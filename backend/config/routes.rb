@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "health_check", to: "health_check#index"
       resources :users, only: [ :create, :destroy, :update, :index ]
-      resources :sessions, only: [ :create, :destroy ]
+      resource :session, only: [ :create, :destroy ]
       resources :tasks, only: [ :update, :show, :destroy, :index, :create ]
       resources :categories, only: [ :index ]
     end
