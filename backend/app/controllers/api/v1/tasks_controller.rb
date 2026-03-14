@@ -42,8 +42,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def set_task
-    @task = current_user.tasks.find_by(id: params[:id])
-    render json: { message: "タスクがありません" }, status: :not_found unless @task
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
