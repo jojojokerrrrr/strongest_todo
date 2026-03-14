@@ -7,7 +7,7 @@ class Api::V1::TasksController < ApplicationController
 
     pagination = {
       next: @tasks.next_page,
-      total_pages: @tasks.total_pages,
+      total_pages: @tasks.total_pages
     }
 
     render json: {
@@ -43,7 +43,7 @@ class Api::V1::TasksController < ApplicationController
 
   def set_task
     @task = current_user.tasks.find_by(id: params[:id])
-    return render json: { message: "タスクがありません" }, status: :not_found unless @task
+    render json: { message: "タスクがありません" }, status: :not_found unless @task
   end
 
   def task_params

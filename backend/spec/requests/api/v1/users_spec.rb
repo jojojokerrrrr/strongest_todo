@@ -62,7 +62,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
     context "不正なパラメータの場合" do
       it "更新に失敗すること" do
-        put "/api/v1/users/#{user.id}", params: { user: {name: ""} }, headers: authorization_header(user)
+        put "/api/v1/users/#{user.id}", params: { user: { name: "" } }, headers: authorization_header(user)
         expect(response).to have_http_status(:unprocessable_content)
       end
     end
