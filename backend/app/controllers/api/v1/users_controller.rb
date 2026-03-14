@@ -12,11 +12,8 @@ class Api::V1::UsersController < ApplicationController
 
   def destroy
     user = current_user
-    if user && user.destroy
-      render json: { message: "Deleted" }, status: :ok
-    else
-      render json: { message: user.errors.full_messages }, status: :unprocessable_content
-    end
+    user.destroy
+    render json: { message: "Deleted" }, status: :ok
   end
 
   def update

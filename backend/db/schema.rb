@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_04_103138) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_14_034447) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -25,8 +25,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_04_103138) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "status", default: 0, null: false
-    t.integer "visibility", default: 0, null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end

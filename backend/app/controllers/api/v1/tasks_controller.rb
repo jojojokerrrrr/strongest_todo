@@ -6,15 +6,12 @@ class Api::V1::TasksController < ApplicationController
     @tasks = current_user.tasks.preload(:category).order(created_at: :desc).page(params[:page]).per(10)
 
     pagination = {
-      current: @tasks.current_page,
       next: @tasks.next_page,
-      prev: @tasks.prev_page,
-      total_pages: @tasks.total_pages,
-      count_pages: @tasks.total_count
+      total_pages: @tasks.total_pages
     }
 
     render json: {
-        tasks: @tasks.as_json(include: { category: { only: :name }, user: { only: :name } }),
+        tasks: @tasks.as_json(include: { category: { only: :name } }),
         meta: pagination
       }, status: :ok
   end
@@ -30,11 +27,8 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def destroy
-    if @task.destroy
-      render json: { message: "タスクを削除しました" }, status: :ok
-    else
-      render json: { message: "タスクの削除に失敗しました" }, status: :unprocessable_content
-    end
+    @task.destroy
+    render json: { message: "タスクを削除しました" }, status: :ok
   end
 
   def update
@@ -48,11 +42,7 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def set_task
-    @task = current_user.tasks.find_by(id: params[:id])
-
-    if @task.nil?
-      render json: { message: "タスクがありません" }, status: :not_found
-    end
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
