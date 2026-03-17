@@ -11,7 +11,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DB_HOST: host.docker.internal
+      DB_HOST: 127.0.0.1
       SECRET_KEY_BASE: dummy_secret
       MYSQL_USER: test_user
       MYSQL_PASSWORD: test_password
