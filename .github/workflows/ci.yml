@@ -8,6 +8,22 @@ on:
 jobs:
   backend-ci:
     runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+      DB_HOST: 127.0.0.1
+      SECRET_KEY_BASE: dummy_secret
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: test_password
+
+    services:
+      db:
+        image: mysql:8.0.32
+        env:
+          MYSQL_ROOT_PASSWORD: test_password
+        ports:
+          - 3306:3306
+
     defaults:
       run:
         working-directory: ./backend
@@ -29,7 +45,13 @@ jobs:
           bin/brakeman --no-pager
 
       - name: RuboCop
-        run: bin/rubocop -f github
+        run: bundle exec rubocop
+
+      - name: Set up database
+        run: bin/rails db:create db:schema:load
+
+      - name: Run RSpec tests
+        run: bundle exec rspec
 
   frontend-ci:
     runs-on: ubuntu-latest

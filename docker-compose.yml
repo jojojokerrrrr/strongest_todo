@@ -2,10 +2,10 @@ services:
   db:
     image: mysql:8.0.32
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: api_development
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -15,6 +15,11 @@ services:
     container_name: backend
     build:
       context: ./backend
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_HOST: db
     command: bash -c "bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ./backend:/api
